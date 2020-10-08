@@ -11,9 +11,14 @@
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.0",
+    "axios": "^0.20.0",
     "cli-ux": "^5.5.0",
+    "date-fns": "^2.16.1",
+    "indent-string": "^4.0.0",
+    "simple-jwt-auth": "^0.4.1",
     "tslib": "^1.14.0",
-    "whodis-client": "^0.1.0"
+    "uuid": "^8.3.1",
+    "whodis-client": "^0.2.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
@@ -64,7 +69,24 @@
     "bin": "whodis",
     "plugins": [
       "@oclif/plugin-help"
-    ]
+    ],
+    "topics": {
+      "namespace": {
+        "description": "manage your namespaces"
+      },
+      "directory": {
+        "description": "manage your directories"
+      },
+      "directory:get": {
+        "description": "get things from directories"
+      },
+      "directory:email": {
+        "description": "manage communication email registration for your directories"
+      },
+      "directory:client": {
+        "description": "manage client access for your directories"
+      }
+    }
   },
   "repository": "whodisio/whodis-cli",
   "scripts": {

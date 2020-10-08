@@ -20,14 +20,14 @@ Ok. Sending a confirmation code now... done
 What is the confirmation code that was sent to that email?: *****
 Thanks! Confirming that now... done
 You have been successfully logged in!
-    `.trim(),
+    `,
     `
 ➜ ./bin/run login --email=hello@whodis.io
 Ok. Sending a confirmation code now... done
 What is the confirmation code that was sent to that email?: *****
 Thanks! Confirming that now... done
 You have been successfully logged in!
-    `.trim(),
+    `,
   ];
 
   static flags = {

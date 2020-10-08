@@ -15,13 +15,13 @@ What is the uuid of the directory you would like to create a client token for?: 
 Why are you creating this client? (This is to remind you in the future what this one is for): ***
 Ok. Creating that that now... done
 Your new client access token is: '***'
-    `.trim(),
+    `,
     `
 ➜ ./bin/run directory:client:create --directoryUuid=***
 Why are you creating this client? (This is to remind you in the future what this one is for): ***
 Ok. Creating that that now... done
 Your new client access token is: '***'
-    `.trim(),
+    `,
   ];
 
   static flags = {

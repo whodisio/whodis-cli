@@ -13,11 +13,11 @@ export default class Reserve extends Command {
 ➜ ./bin/run namespace:reserve
 What namespace would you like to reserve?: ***
 Ok. Reserving that now... done
-    `.trim(),
+    `,
     `
 ➜ ./bin/run namespace:reserve --namespace=***
 Ok. Reserving that now... done
-    `.trim(),
+    `,
   ];
 
   static flags = {

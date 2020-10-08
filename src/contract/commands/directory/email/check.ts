@@ -18,14 +18,14 @@ Ok. Checking that now... done
 
 The status of this registration is:
   ***
-    `.trim(),
+    `,
     `
 ➜ ./bin/run directory:email:check --directoryUuid=*** --email=***
 Ok. Checking that now... done
 
 The status of this registration is:
   ***
-    `.trim(),
+    `,
   ];
 
   static flags = {

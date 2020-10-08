@@ -14,13 +14,15 @@ export default class Create extends Command {
 What namespace would you like to create the new user directory in?: ***
 What name would you like to give the new user directory?: ***
 Ok. Creating that now... done
-Your new directory's uuid is '***'
-    `.trim(),
+Your new directory's uuid is:
+  '***'
+    `,
     `
 ➜ ./bin/run directory:create --namespace=*** --name=***
 Ok. Creating that now... done
-Your new directory's uuid is '***'
-    `.trim(),
+Your new directory's uuid is:
+  '***'
+    `,
   ];
 
   static flags = {
@@ -46,6 +48,7 @@ Your new directory's uuid is '***'
     cli.action.start('Ok. Creating that now');
     const { directoryUuid } = await createDirectory({ namespace, name });
     cli.action.stop();
-    cli.info(`Your new directory's uuid is '${directoryUuid}'`);
+    cli.info(`Your new directory's uuid is:
+  '${directoryUuid}'`);
   }
 }

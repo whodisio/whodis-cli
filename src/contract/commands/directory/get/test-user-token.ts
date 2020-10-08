@@ -17,13 +17,13 @@ In how many hours should this token not even be refreshable?: ***
 Ok. Getting that now... done
 The test user token is:
   ***
-    `.trim(),
+    `,
     `
 ➜ ./bin/run directory:get:test-user-token --directoryUuid=*** expauth=*** exprefresh=***
 Ok. Getting that now... done
 The test user token is:
   ***
-    `.trim(),
+    `,
   ];
 
   static flags = {

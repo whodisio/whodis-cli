@@ -12,7 +12,7 @@ export default class Logout extends Command {
     `
 ➜ ./bin/run logout
 Ok. Logging out now... done
-    `.trim(),
+    `,
   ];
 
   static flags = {

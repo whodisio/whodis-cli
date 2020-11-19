@@ -4,7 +4,7 @@
   "version": "0.1.1",
   "author": "Ulad Kasach @uladkasach",
   "bin": {
-    "whodis": "./bin/run"
+    "whodis": "whodis"
   },
   "bugs": "https://github.com/whodisio/whodis-cli/issues",
   "dependencies": {
@@ -18,7 +18,7 @@
     "simple-jwt-auth": "^0.4.1",
     "tslib": "^1.14.0",
     "uuid": "^8.3.1",
-    "whodis-client": "^0.2.0"
+    "whodis-client": "^0.5.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",

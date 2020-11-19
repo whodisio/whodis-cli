@@ -10,12 +10,12 @@ export default class Reserve extends Command {
 
   static examples = [
     `
-➜ ./bin/run namespace:reserve
+➜ whodis namespace:reserve
 What namespace would you like to reserve?: ***
 Ok. Reserving that now... done
     `,
     `
-➜ ./bin/run namespace:reserve --namespace=***
+➜ whodis namespace:reserve --namespace=***
 Ok. Reserving that now... done
     `,
   ];

@@ -10,14 +10,15 @@ export default class Set extends Command {
 
   static examples = [
     `
-➜ ./bin/run directory:client:create
+➜ whodis directory:client:create
 What is the uuid of the directory you would like to create a client token for?: ***
+What is the uri of the intended audience you want tokens issued with this client for? (e.g., \`https://api.yourdomain.com\`): ***
 Why are you creating this client? (This is to remind you in the future what this one is for): ***
 Ok. Creating that that now... done
 Your new client access token is: '***'
     `,
     `
-➜ ./bin/run directory:client:create --directoryUuid=***
+➜ whodis directory:client:create --directoryUuid=*** --audienceUri=***
 Why are you creating this client? (This is to remind you in the future what this one is for): ***
 Ok. Creating that that now... done
 Your new client access token is: '***'
@@ -29,6 +30,10 @@ Your new client access token is: '***'
     directoryUuid: flags.string({
       char: 'd',
       description: 'the uuid of the directory you would like to create a client token for',
+    }),
+    audienceUri: flags.string({
+      char: 'a',
+      description: 'the uri of the intended audience you want tokens issued with this client for (e.g., `https://api.yourdomain.com`)',
     }),
     reason: flags.string({
       char: 'r',
@@ -42,13 +47,18 @@ Your new client access token is: '***'
     // define the input
     const directoryUuid =
       invokedFlags.directoryUuid || (await cli.prompt('What is the uuid of the directory you would like to create a client token for?'));
+    const audienceUri =
+      invokedFlags.audienceUri ||
+      (await cli.prompt(
+        'What is the uri of the intended audience you want tokens issued with this client for? (e.g., `https://api.yourdomain.com`)',
+      ));
     const reason =
       invokedFlags.reason || (await cli.prompt('Why are you creating this client? (This is to remind you in the future what this one is for)'));
 
     // fulfill request
     cli.action.start('Ok. Creating that that now');
-    const { clientToken } = await createDirectoryClient({ directoryUuid, reason });
+    const { clientUuid } = await createDirectoryClient({ directoryUuid, audienceUri, reason });
     cli.action.stop();
-    cli.info(`Your new client access token is: '${clientToken}'`);
+    cli.info(`Your new client access token is: '${clientUuid}'`);
   }
 }

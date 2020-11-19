@@ -10,7 +10,7 @@ export default class Logout extends Command {
 
   static examples = [
     `
-➜ ./bin/run logout
+➜ whodis logout
 Ok. Logging out now... done
     `,
   ];

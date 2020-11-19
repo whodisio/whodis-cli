@@ -10,7 +10,7 @@ export default class Create extends Command {
 
   static examples = [
     `
-➜ ./bin/run directory:create
+➜ whodis directory:create
 What namespace would you like to create the new user directory in?: ***
 What name would you like to give the new user directory?: ***
 Ok. Creating that now... done
@@ -18,7 +18,7 @@ Your new directory's uuid is:
   '***'
     `,
     `
-➜ ./bin/run directory:create --namespace=*** --name=***
+➜ whodis directory:create --namespace=*** --name=***
 Ok. Creating that now... done
 Your new directory's uuid is:
   '***'

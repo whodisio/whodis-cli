@@ -6,11 +6,13 @@ import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 
 export const createDirectoryClient = async ({
   directoryUuid,
+  audienceUri,
   reason,
 }: {
   directoryUuid: string;
+  audienceUri: string;
   reason: string;
-}): Promise<{ clientToken: string }> => {
+}): Promise<{ clientUuid: string }> => {
   // grab their token
   const token = await requireTokenForUser();
 
@@ -21,10 +23,10 @@ export const createDirectoryClient = async ({
   try {
     const { data } = await axios.post(
       'https://api.whodis.io/admin/directory/client/create',
-      { directoryUuid, reason, requestUuid },
+      { directoryUuid, audienceUri, reason, requestUuid },
       { headers: { authorization: `Bearer ${token}` } },
     );
-    return { clientToken: data.clientToken };
+    return { clientUuid: data.clientUuid };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
     if (whodisBadRequestError) throw whodisBadRequestError; // if we found its a whodisBadRequestError, throw it

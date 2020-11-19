@@ -11,7 +11,7 @@ export default class Set extends Command {
 
   static examples = [
     `
-➜ ./bin/run directory:email:set
+➜ whodis directory:email:set
 What is the uuid of the directory you would like to register an email for?: ***
 What is the email address you would like to register?: ***
 Ok. Registering that now... done
@@ -20,8 +20,8 @@ The status of this registration is now:
   ***
     `,
     `
-➜ ./bin/run directory:email:set --directoryUuid=*** --email=***
-Ok. Checking that now... done
+➜ whodis directory:email:set --directoryUuid=*** --email=***
+Ok. Registering that now... done
 
 The status of this registration is now:
   ***

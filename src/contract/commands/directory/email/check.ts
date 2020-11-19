@@ -11,7 +11,7 @@ export default class Check extends Command {
 
   static examples = [
     `
-➜ ./bin/run directory:email:check
+➜ whodis directory:email:check
 What is the uuid of the directory you would like to check for?: ***
 What is the email address you would like to check for?: ***
 Ok. Checking that now... done
@@ -20,7 +20,7 @@ The status of this registration is:
   ***
     `,
     `
-➜ ./bin/run directory:email:check --directoryUuid=*** --email=***
+➜ whodis directory:email:check --directoryUuid=*** --email=***
 Ok. Checking that now... done
 
 The status of this registration is:

@@ -14,7 +14,7 @@ export default class Signup extends Command {
 
   static examples = [
     `
-➜ ./bin/run signup
+➜ whodis signup
 What email would you like to signup with?: hello@whodis.io
 Ok. Sending a confirmation code now... done
 What is the confirmation code that was sent to that email?: *****
@@ -22,7 +22,7 @@ Thanks! Confirming that now... done
 You have been successfully signed up!
     `,
     `
-➜ ./bin/run signup --email=hello@whodis.io
+➜ whodis signup --email=hello@whodis.io
 Ok. Sending a confirmation code now... done
 What is the confirmation code that was sent to that email?: *****
 Thanks! Confirming that now... done
@@ -45,7 +45,7 @@ You have been successfully signed up!
     cli.action.start('Ok. Sending a confirmation code now');
     const { challengeUuid } = await askAuthChallenge({
       directoryUuid: WHODIS_DIRECTORY_UUID,
-      clientToken: WHODIS_DIRECTORY_CLIENT_TOKEN,
+      clientUuid: WHODIS_DIRECTORY_CLIENT_TOKEN,
       goal: ChallengeGoal.SIGNUP,
       type: ChallengeType.CONFIRMATION_CODE,
       contactMethod: { type: ContactMethodType.EMAIL, address: email },

@@ -10,8 +10,9 @@ export default class TestUserToken extends Command {
 
   static examples = [
     `
-➜ ./bin/run directory:get:test-user-token
+➜ whodis directory:test-user:generate-token
 What is the directoryUuid for the directory to get a test user token from?: ***
+What is the uri of the intended audience of this token?: ***
 In how many hours should this token expire?: ***
 In how many hours should this token not even be refreshable?: ***
 Ok. Getting that now... done
@@ -19,7 +20,7 @@ The test user token is:
   ***
     `,
     `
-➜ ./bin/run directory:get:test-user-token --directoryUuid=*** expauth=*** exprefresh=***
+➜ whodis directory:test-user:generate-token --directoryUuid=*** --audienceUri=*** expauth=*** exprefresh=***
 Ok. Getting that now... done
 The test user token is:
   ***
@@ -31,6 +32,10 @@ The test user token is:
     directoryUuid: flags.string({
       char: 'd',
       description: 'the uuid of the directory you would like to check for',
+    }),
+    audienceUri: flags.string({
+      char: 'a',
+      description: 'the uri of the intended audience of this token',
     }),
     expauth: flags.integer({
       char: 'a',
@@ -48,12 +53,13 @@ The test user token is:
     // define the email
     const directoryUuid =
       invokedFlags.directoryUuid || (await cli.prompt('What is the directoryUuid for the directory to get a test user token from?'));
+    const audienceUri = invokedFlags.audienceUri || (await cli.prompt('What is the uri of the intended audience of this token?'));
     const forAuth = invokedFlags.expauth || (await cli.prompt('In how many hours should this token expire?'));
     const forRefresh = invokedFlags.exprefresh || (await cli.prompt('In how many hours should this token not even be refreshable?'));
 
     // fulfill request
     cli.action.start('Ok. Getting that now');
-    const { token } = await getTestUserToken({ directoryUuid, expirationInHours: { forAuth, forRefresh } });
+    const { token } = await getTestUserToken({ directoryUuid, audienceUri, expirationInHours: { forAuth, forRefresh } });
     cli.action.stop();
     cli.info(
       `The test user token is:

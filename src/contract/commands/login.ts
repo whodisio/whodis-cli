@@ -1,6 +1,5 @@
 import cli from 'cli-ux';
-import { answerAuthChallenge, askAuthChallenge } from 'whodis-client';
-import { ChallengeGoal, ChallengeType, ContactMethodType } from 'whodis-client/dist/askAuthChallenge';
+import { answerAuthChallenge, askAuthChallenge, ChallengeGoal, ChallengeType, ContactMethodType } from 'whodis-client';
 
 import { Command, flags } from '@oclif/command';
 

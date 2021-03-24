@@ -328,7 +328,7 @@ EXAMPLES
      ***
 
 
-  ➜ whodis directory:test-user:generate-token --directoryUuid=*** --audienceUri=*** expauth=*** exprefresh=***
+  ➜ whodis directory:test-user:generate-token --directoryUuid=*** --audienceUri=*** --expauth=*** --exprefresh=***
   Ok. Getting that now... done
   The test user token is:
      ***

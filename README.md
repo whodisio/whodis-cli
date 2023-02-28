@@ -129,42 +129,81 @@ In the web environment, the only safe place to store a JWT is an HTTPSOnly, Secu
 
 This does not affect native platforms (e.g., android, ios, the terminal) because native platforms aren't exposed to as many vulnerabilities as browsers are (e.g., they have secure storage available).
 
+### generate api key, to programmatically manage your directory
+
+In order to programmatically access and manage user data with the [whodis-sdk](github.com/whodisio/whodis-sdk) you need an api key. Fortunately, it is really easy to generate one.
+
+⚠️ Your private key is like a password. Make sure to keep it secure! ⚠️
+
+```
+whodis directory:apikey:generate --directoryUuid=__DIRECTORY_UUID__
+```
+
 # Installation
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g whodis-cli
 $ whodis COMMAND
 running command...
 $ whodis (-v|--version|version)
-whodis-cli/0.1.1 linux-x64 node-v12.16.3
+whodis-cli/0.3.0 linux-x64 node-v18.12.1
 $ whodis --help [COMMAND]
 USAGE
   $ whodis COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+* [`whodis directory:apikey:generate`](#whodis-directoryapikeygenerate)
+* [`whodis directory:client:create`](#whodis-directoryclientcreate)
+* [`whodis directory:create`](#whodis-directorycreate)
+* [`whodis directory:email:check`](#whodis-directoryemailcheck)
+* [`whodis directory:email:set`](#whodis-directoryemailset)
+* [`whodis directory:list`](#whodis-directorylist)
+* [`whodis directory:test-user:generate-token`](#whodis-directorytest-usergenerate-token)
+* [`whodis domain:ownership:check`](#whodis-domainownershipcheck)
+* [`whodis domain:ownership:claim`](#whodis-domainownershipclaim)
+* [`whodis domain:proxy:check`](#whodis-domainproxycheck)
+* [`whodis domain:proxy:create`](#whodis-domainproxycreate)
+* [`whodis help [COMMAND]`](#whodis-help-command)
+* [`whodis login`](#whodis-login)
+* [`whodis logout`](#whodis-logout)
+* [`whodis namespace:list`](#whodis-namespacelist)
+* [`whodis namespace:reserve`](#whodis-namespacereserve)
+* [`whodis signup`](#whodis-signup)
 
-- [`whodis directory:client:create`](#whodis-directoryclientcreate)
-- [`whodis directory:create`](#whodis-directorycreate)
-- [`whodis directory:email:check`](#whodis-directoryemailcheck)
-- [`whodis directory:email:set`](#whodis-directoryemailset)
-- [`whodis directory:test-user:generate-token`](#whodis-directorytest-usergenerate-token)
-- [`whodis domain:ownership:check`](#whodis-domainownershipcheck)
-- [`whodis domain:ownership:claim`](#whodis-domainownershipclaim)
-- [`whodis domain:proxy:check`](#whodis-domainproxycheck)
-- [`whodis domain:proxy:create`](#whodis-domainproxycreate)
-- [`whodis help [COMMAND]`](#whodis-help-command)
-- [`whodis login`](#whodis-login)
-- [`whodis logout`](#whodis-logout)
-- [`whodis namespace:reserve`](#whodis-namespacereserve)
-- [`whodis signup`](#whodis-signup)
+## `whodis directory:apikey:generate`
+
+create an apikey to programmatically manage a directory
+
+```
+USAGE
+  $ whodis directory:apikey:generate
+
+OPTIONS
+  -d, --directoryUuid=directoryUuid  the uuid of the directory you would like to create a client token for
+  -h, --help                         show CLI help
+
+EXAMPLES
+
+  ➜ whodis directory:apikey:generate
+  What is the uuid of the directory you would like to generate an apikey for?: ***
+  Ok. Generating that that now... done
+  Your new public key: '***'
+  Your new private key: '***'
+  ⚠️ Your private key is like a password. Make sure to keep it secure! ⚠️
+    
+
+  ➜ whodis directory:apikey:generate --directoryUuid=***
+  Ok. Creating that that now... done
+  Your new public key: '***'
+  Your new private key: '***'
+  ⚠️ Your private key is like a password. Make sure to keep it secure! ⚠️
+```
 
 ## `whodis directory:client:create`
 
@@ -189,12 +228,12 @@ EXAMPLES
 
   ➜ whodis directory:client:create
   What is the uuid of the directory you would like to create a client token for?: ***
-  What is the uri of the intended audience you want tokens issued with this client for? (e.g.,
+  What is the uri of the intended audience you want tokens issued with this client for? (e.g., 
   `https://api.yourdomain.com`): ***
   Why are you creating this client? (This is to remind you in the future what this one is for): ***
   Ok. Creating that that now... done
   Your new client access token is: '***'
-
+    
 
   ➜ whodis directory:client:create --directoryUuid=*** --audienceUri=***
   Why are you creating this client? (This is to remind you in the future what this one is for): ***
@@ -202,7 +241,7 @@ EXAMPLES
   Your new client access token is: '***'
 ```
 
-_See code: [dist/contract/commands/directory/client/create.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/directory/client/create.ts)_
+_See code: [dist/contract/commands/directory/client/create.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/directory/client/create.ts)_
 
 ## `whodis directory:create`
 
@@ -225,7 +264,7 @@ EXAMPLES
   Ok. Creating that now... done
   Your new directory's uuid is:
      '***'
-
+    
 
   ➜ whodis directory:create --namespace=*** --name=***
   Ok. Creating that now... done
@@ -233,7 +272,7 @@ EXAMPLES
      '***'
 ```
 
-_See code: [dist/contract/commands/directory/create.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/directory/create.ts)_
+_See code: [dist/contract/commands/directory/create.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/directory/create.ts)_
 
 ## `whodis directory:email:check`
 
@@ -257,7 +296,7 @@ EXAMPLES
 
   The status of this registration is:
      ***
-
+    
 
   ➜ whodis directory:email:check --directoryUuid=*** --email=***
   Ok. Checking that now... done
@@ -266,7 +305,7 @@ EXAMPLES
      ***
 ```
 
-_See code: [dist/contract/commands/directory/email/check.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/directory/email/check.ts)_
+_See code: [dist/contract/commands/directory/email/check.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/directory/email/check.ts)_
 
 ## `whodis directory:email:set`
 
@@ -290,7 +329,7 @@ EXAMPLES
 
   The status of this registration is now:
      ***
-
+    
 
   ➜ whodis directory:email:set --directoryUuid=*** --email=***
   Ok. Registering that now... done
@@ -299,7 +338,39 @@ EXAMPLES
      ***
 ```
 
-_See code: [dist/contract/commands/directory/email/set.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/directory/email/set.ts)_
+_See code: [dist/contract/commands/directory/email/set.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/directory/email/set.ts)_
+
+## `whodis directory:list`
+
+list the directories in a namespace you have admin access of
+
+```
+USAGE
+  $ whodis directory:list
+
+OPTIONS
+  -h, --help                 show CLI help
+  -s, --namespace=namespace  A namespace you have reserved
+
+EXAMPLES
+
+  ➜ whodis directory:list
+  What namespace would you like to list the directories of?: ***
+  Ok. Looking that up now... done
+  The directories in this namespace are:
+     - ***
+     - ***
+    
+
+  ➜ whodis directory:list --namespace=***
+  Ok. Looking that up now... done
+  The directories in this namespace are:
+     - ***
+     - ***
+  ...
+```
+
+_See code: [dist/contract/commands/directory/list.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/directory/list.ts)_
 
 ## `whodis directory:test-user:generate-token`
 
@@ -326,7 +397,7 @@ EXAMPLES
   Ok. Getting that now... done
   The test user token is:
      ***
-
+    
 
   ➜ whodis directory:test-user:generate-token --directoryUuid=*** --audienceUri=*** --expauth=*** --exprefresh=***
   Ok. Getting that now... done
@@ -334,7 +405,7 @@ EXAMPLES
      ***
 ```
 
-_See code: [dist/contract/commands/directory/test-user/generate-token.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/directory/test-user/generate-token.ts)_
+_See code: [dist/contract/commands/directory/test-user/generate-token.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/directory/test-user/generate-token.ts)_
 
 ## `whodis domain:ownership:check`
 
@@ -356,7 +427,7 @@ EXAMPLES
 
   The status of this ownership claim is:
      ***
-
+    
 
   ➜ whodis domain:ownership:check --domain=***
   Ok. Checking that now... done
@@ -364,6 +435,8 @@ EXAMPLES
   The status of this ownership claim is:
      ***
 ```
+
+_See code: [dist/contract/commands/domain/ownership/check.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/domain/ownership/check.ts)_
 
 ## `whodis domain:ownership:claim`
 
@@ -385,7 +458,7 @@ EXAMPLES
 
   The status of this ownership claim is:
      ***
-
+    
 
   ➜ whodis domain:ownership:claim --domain=***
   Ok. Doing that now... done
@@ -393,6 +466,8 @@ EXAMPLES
   The status of this ownership claim is:
      ***
 ```
+
+_See code: [dist/contract/commands/domain/ownership/claim.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/domain/ownership/claim.ts)_
 
 ## `whodis domain:proxy:check`
 
@@ -414,7 +489,7 @@ EXAMPLES
 
   The status of this proxy is:
      ***
-
+    
 
   ➜ whodis domain:proxy:check --domain=***
   Ok. Checking that now... done
@@ -422,6 +497,8 @@ EXAMPLES
   The status of this proxy is:
      ***
 ```
+
+_See code: [dist/contract/commands/domain/proxy/check.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/domain/proxy/check.ts)_
 
 ## `whodis domain:proxy:create`
 
@@ -443,7 +520,7 @@ EXAMPLES
 
   The status of this proxy is:
      ***
-
+    
 
   ➜ whodis domain:proxy:create --domain=***
   Ok. Doing that now... done
@@ -451,6 +528,8 @@ EXAMPLES
   The status of this proxy is:
      ***
 ```
+
+_See code: [dist/contract/commands/domain/proxy/create.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/domain/proxy/create.ts)_
 
 ## `whodis help [COMMAND]`
 
@@ -489,7 +568,7 @@ EXAMPLES
   What is the confirmation code that was sent to that email?: *****
   Thanks! Confirming that now... done
   You have been successfully logged in!
-
+    
 
   ➜ whodis login --email=hello@whodis.io
   Ok. Sending a confirmation code now... done
@@ -498,7 +577,7 @@ EXAMPLES
   You have been successfully logged in!
 ```
 
-_See code: [dist/contract/commands/login.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/login.ts)_
+_See code: [dist/contract/commands/login.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/login.ts)_
 
 ## `whodis logout`
 
@@ -517,7 +596,30 @@ EXAMPLE
   Ok. Logging out now... done
 ```
 
-_See code: [dist/contract/commands/logout.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/logout.ts)_
+_See code: [dist/contract/commands/logout.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/logout.ts)_
+
+## `whodis namespace:list`
+
+list namespaces you have admin access of
+
+```
+USAGE
+  $ whodis namespace:list
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+
+  ➜ whodis namespace:list
+  Ok. Looking that up now... done
+  The namespaces you have admin access to are:
+     - ***
+     - ***
+  ...
+```
+
+_See code: [dist/contract/commands/namespace/list.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/namespace/list.ts)_
 
 ## `whodis namespace:reserve`
 
@@ -536,13 +638,13 @@ EXAMPLES
   ➜ whodis namespace:reserve
   What namespace would you like to reserve?: ***
   Ok. Reserving that now... done
-
+    
 
   ➜ whodis namespace:reserve --namespace=***
   Ok. Reserving that now... done
 ```
 
-_See code: [dist/contract/commands/namespace/reserve.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/namespace/reserve.ts)_
+_See code: [dist/contract/commands/namespace/reserve.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/namespace/reserve.ts)_
 
 ## `whodis signup`
 
@@ -564,7 +666,7 @@ EXAMPLES
   What is the confirmation code that was sent to that email?: *****
   Thanks! Confirming that now... done
   You have been successfully signed up!
-
+    
 
   ➜ whodis signup --email=hello@whodis.io
   Ok. Sending a confirmation code now... done
@@ -573,6 +675,5 @@ EXAMPLES
   You have been successfully signed up!
 ```
 
-_See code: [dist/contract/commands/signup.ts](https://github.com/whodisio/whodis-cli/blob/v0.1.1/dist/contract/commands/signup.ts)_
-
+_See code: [dist/contract/commands/signup.ts](https://github.com/whodisio/whodis-cli/blob/v0.3.0/dist/contract/commands/signup.ts)_
 <!-- commandsstop -->

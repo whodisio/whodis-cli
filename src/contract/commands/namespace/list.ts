@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { listNamespaces } from '../../../logic/adminApi/listNamespaces';
 

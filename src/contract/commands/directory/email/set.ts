@@ -1,7 +1,6 @@
+import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
 import indentString from 'indent-string';
-
-import { Command, flags } from '@oclif/command';
 
 import { setDirectoryEmail } from '../../../../logic/adminApi/setDirectoryEmail';
 
@@ -32,7 +31,8 @@ The status of this registration is now:
     help: flags.help({ char: 'h' }),
     directoryUuid: flags.string({
       char: 'd',
-      description: 'the uuid of the directory you would like to register an email for',
+      description:
+        'the uuid of the directory you would like to register an email for',
     }),
     email: flags.string({
       char: 'e',
@@ -45,8 +45,15 @@ The status of this registration is now:
 
     // define the input
     const directoryUuid =
-      invokedFlags.directoryUuid || (await cli.prompt('What is the uuid of the directory you would like to register an email for?'));
-    const email = invokedFlags.email || (await cli.prompt('What is the email address you would like to register?'));
+      invokedFlags.directoryUuid ||
+      (await cli.prompt(
+        'What is the uuid of the directory you would like to register an email for?',
+      ));
+    const email =
+      invokedFlags.email ||
+      (await cli.prompt(
+        'What is the email address you would like to register?',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Registering that now');

@@ -1,6 +1,5 @@
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { getTestUserToken } from '../../../../logic/adminApi/getTestUserToken';
 
@@ -43,7 +42,8 @@ The test user token is:
     }),
     exprefresh: flags.integer({
       char: 'r',
-      description: 'number of hours until token can no longer even be refreshed',
+      description:
+        'number of hours until token can no longer even be refreshed',
     }),
   };
 
@@ -52,14 +52,31 @@ The test user token is:
 
     // define the email
     const directoryUuid =
-      invokedFlags.directoryUuid || (await cli.prompt('What is the directoryUuid for the directory to get a test user token from?'));
-    const audienceUri = invokedFlags.audienceUri || (await cli.prompt('What is the uri of the intended audience of this token?'));
-    const forAuth = invokedFlags.expauth || (await cli.prompt('In how many hours should this token expire?'));
-    const forRefresh = invokedFlags.exprefresh || (await cli.prompt('In how many hours should this token not even be refreshable?'));
+      invokedFlags.directoryUuid ||
+      (await cli.prompt(
+        'What is the directoryUuid for the directory to get a test user token from?',
+      ));
+    const audienceUri =
+      invokedFlags.audienceUri ||
+      (await cli.prompt(
+        'What is the uri of the intended audience of this token?',
+      ));
+    const forAuth =
+      invokedFlags.expauth ||
+      (await cli.prompt('In how many hours should this token expire?'));
+    const forRefresh =
+      invokedFlags.exprefresh ||
+      (await cli.prompt(
+        'In how many hours should this token not even be refreshable?',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Getting that now');
-    const { token } = await getTestUserToken({ directoryUuid, audienceUri, expirationInHours: { forAuth, forRefresh } });
+    const { token } = await getTestUserToken({
+      directoryUuid,
+      audienceUri,
+      expirationInHours: { forAuth, forRefresh },
+    });
     cli.action.stop();
     cli.info(
       `The test user token is:

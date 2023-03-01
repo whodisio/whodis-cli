@@ -1,12 +1,12 @@
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { generateDirectoryApikey } from '../../../../logic/adminApi/generateDirectoryApikey';
 
 // eslint-disable-next-line import/no-default-export
 export default class Generate extends Command {
-  static description = 'create an apikey to programmatically manage a directory';
+  static description =
+    'create an apikey to programmatically manage a directory';
 
   static examples = [
     `
@@ -30,7 +30,8 @@ Your new private key: '***'
     help: flags.help({ char: 'h' }),
     directoryUuid: flags.string({
       char: 'd',
-      description: 'the uuid of the directory you would like to create an apikey for?',
+      description:
+        'the uuid of the directory you would like to create an apikey for?',
     }),
   };
 
@@ -39,14 +40,21 @@ Your new private key: '***'
 
     // define the input
     const directoryUuid =
-      invokedFlags.directoryUuid || (await cli.prompt('What is the uuid of the directory you would like to create an apikey for?'));
+      invokedFlags.directoryUuid ||
+      (await cli.prompt(
+        'What is the uuid of the directory you would like to create an apikey for?',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Creating that that now');
-    const { clientPrivateKey, clientPublicKey } = await generateDirectoryApikey({ directoryUuid });
+    const { clientPrivateKey, clientPublicKey } = await generateDirectoryApikey(
+      { directoryUuid },
+    );
     cli.action.stop();
     cli.info(`Your new public key is: '${clientPublicKey}'`);
     cli.info(`Your new private key is: '${clientPrivateKey}'`);
-    cli.info(`⚠️ Your private key is like a password. Make sure to keep it secure! ⚠️`);
+    cli.info(
+      `⚠️ Your private key is like a password. Make sure to keep it secure! ⚠️`,
+    );
   }
 }

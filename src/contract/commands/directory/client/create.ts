@@ -1,6 +1,5 @@
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { createDirectoryClient } from '../../../../logic/adminApi/createDirectoryClient';
 
@@ -29,15 +28,18 @@ Your new client access token is: '***'
     help: flags.help({ char: 'h' }),
     directoryUuid: flags.string({
       char: 'd',
-      description: 'the uuid of the directory you would like to create a client token for',
+      description:
+        'the uuid of the directory you would like to create a client token for',
     }),
     audienceUri: flags.string({
       char: 'a',
-      description: 'the uri of the intended audience you want tokens issued with this client for (e.g., `https://api.yourdomain.com`)',
+      description:
+        'the uri of the intended audience you want tokens issued with this client for (e.g., `https://api.yourdomain.com`)',
     }),
     reason: flags.string({
       char: 'r',
-      description: 'what is the reason for needing this client access? (to remind you in the future what this one is for)',
+      description:
+        'what is the reason for needing this client access? (to remind you in the future what this one is for)',
     }),
   };
 
@@ -46,18 +48,28 @@ Your new client access token is: '***'
 
     // define the input
     const directoryUuid =
-      invokedFlags.directoryUuid || (await cli.prompt('What is the uuid of the directory you would like to create a client token for?'));
+      invokedFlags.directoryUuid ||
+      (await cli.prompt(
+        'What is the uuid of the directory you would like to create a client token for?',
+      ));
     const audienceUri =
       invokedFlags.audienceUri ||
       (await cli.prompt(
         'What is the uri of the intended audience you want tokens issued with this client for? (e.g., `https://api.yourdomain.com`)',
       ));
     const reason =
-      invokedFlags.reason || (await cli.prompt('Why are you creating this client? (This is to remind you in the future what this one is for)'));
+      invokedFlags.reason ||
+      (await cli.prompt(
+        'Why are you creating this client? (This is to remind you in the future what this one is for)',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Creating that that now');
-    const { clientUuid } = await createDirectoryClient({ directoryUuid, audienceUri, reason });
+    const { clientUuid } = await createDirectoryClient({
+      directoryUuid,
+      audienceUri,
+      reason,
+    });
     cli.action.stop();
     cli.info(`Your new client access token is: '${clientUuid}'`);
   }

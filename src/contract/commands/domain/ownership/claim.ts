@@ -1,7 +1,6 @@
+import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
 import indentString from 'indent-string';
-
-import { Command, flags } from '@oclif/command';
 
 import { claimDomainOwnership } from '../../../../logic/adminApi/claimDomainOwnership';
 
@@ -39,7 +38,9 @@ The status of this ownership claim is:
     const { flags: invokedFlags } = this.parse(Claim);
 
     // define the args
-    const domain = invokedFlags.domain || (await cli.prompt('What domain would you like to claim ownership of?'));
+    const domain =
+      invokedFlags.domain ||
+      (await cli.prompt('What domain would you like to claim ownership of?'));
 
     // fulfill request
     cli.action.start('Ok. Doing that now');

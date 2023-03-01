@@ -1,7 +1,6 @@
+import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
 import indentString from 'indent-string';
-
-import { Command, flags } from '@oclif/command';
 
 import { checkDomainProxy } from '../../../../logic/adminApi/checkDomainProxy';
 
@@ -39,7 +38,9 @@ The status of this proxy is:
     const { flags: invokedFlags } = this.parse(Check);
 
     // define the args
-    const domain = invokedFlags.domain || (await cli.prompt('What domain would you like to check the proxy of?'));
+    const domain =
+      invokedFlags.domain ||
+      (await cli.prompt('What domain would you like to check the proxy of?'));
 
     // fulfill request
     cli.action.start('Ok. Checking that now');

@@ -1,6 +1,5 @@
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { forgetTokenForUser } from '../../logic/token/forgetTokenForUser';
 

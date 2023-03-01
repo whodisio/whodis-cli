@@ -1,7 +1,6 @@
+import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
 import indentString from 'indent-string';
-
-import { Command, flags } from '@oclif/command';
 
 import { checkDomainOwnership } from '../../../../logic/adminApi/checkDomainOwnership';
 
@@ -31,7 +30,8 @@ The status of this ownership claim is:
     help: flags.help({ char: 'h' }),
     domain: flags.string({
       char: 's',
-      description: 'A domain you would like to check ownership claim status for',
+      description:
+        'A domain you would like to check ownership claim status for',
     }),
   };
 
@@ -39,7 +39,11 @@ The status of this ownership claim is:
     const { flags: invokedFlags } = this.parse(Check);
 
     // define the args
-    const domain = invokedFlags.domain || (await cli.prompt('What domain would you like to check an ownership claim for?'));
+    const domain =
+      invokedFlags.domain ||
+      (await cli.prompt(
+        'What domain would you like to check an ownership claim for?',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Checking that now');

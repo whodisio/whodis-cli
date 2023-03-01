@@ -1,6 +1,10 @@
 import fs from 'fs';
 import os from 'os';
-import { isTokenExpired, isTokenRefreshable, refreshToken } from 'whodis-client';
+import {
+  isTokenExpired,
+  isTokenRefreshable,
+  refreshToken,
+} from 'whodis-client';
 
 /**
  * find token from storage
@@ -31,6 +35,7 @@ export const getTokenForUser = async (): Promise<string | null> => {
 
   // check if its expired and refreshable
   if (!isTokenExpired({ token })) return token; // not expired? we're good to go
-  if (isTokenRefreshable({ token })) return (await refreshToken({ token })).token; // expired and refreshable? good to go
+  if (isTokenRefreshable({ token }))
+    return (await refreshToken({ token })).token; // expired and refreshable? good to go
   return null; // expired and not refreshable? out of luck
 };

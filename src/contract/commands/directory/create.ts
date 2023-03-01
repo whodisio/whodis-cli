@@ -1,6 +1,5 @@
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { createDirectory } from '../../../logic/adminApi/createDirectory';
 
@@ -41,8 +40,16 @@ Your new directory's uuid is:
     const { flags: invokedFlags } = this.parse(Create);
 
     // define the input
-    const namespace = invokedFlags.namespace || (await cli.prompt('What namespace would you like to create the new user directory in?'));
-    const name = invokedFlags.name || (await cli.prompt('What name would you like to give the new user directory?'));
+    const namespace =
+      invokedFlags.namespace ||
+      (await cli.prompt(
+        'What namespace would you like to create the new user directory in?',
+      ));
+    const name =
+      invokedFlags.name ||
+      (await cli.prompt(
+        'What name would you like to give the new user directory?',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Creating that now');

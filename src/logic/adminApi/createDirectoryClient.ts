@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { v4 as uuid } from 'uuid';
 
 import { requireTokenForUser } from '../token/requireTokenForUser';
@@ -28,7 +28,9 @@ export const createDirectoryClient = async ({
     );
     return { clientUuid: data.clientUuid };
   } catch (error) {
-    const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
+    const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({
+      axiosError: error as AxiosError,
+    });
     if (whodisBadRequestError) throw whodisBadRequestError; // if we found its a whodisBadRequestError, throw it
     throw error; // otherwise, just pass the error up as is - there's nothing helpful we can add onto it
   }

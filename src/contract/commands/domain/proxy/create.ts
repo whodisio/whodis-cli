@@ -1,7 +1,6 @@
+import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
 import indentString from 'indent-string';
-
-import { Command, flags } from '@oclif/command';
 
 import { createDomainProxy } from '../../../../logic/adminApi/createDomainProxy';
 
@@ -39,7 +38,9 @@ The status of this proxy is:
     const { flags: invokedFlags } = this.parse(Create);
 
     // define the args
-    const domain = invokedFlags.domain || (await cli.prompt('What domain would you like to create the proxy for'));
+    const domain =
+      invokedFlags.domain ||
+      (await cli.prompt('What domain would you like to create the proxy for'));
 
     // fulfill request
     cli.action.start('Ok. Doing that now');

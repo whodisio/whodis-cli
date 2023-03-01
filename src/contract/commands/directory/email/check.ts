@@ -1,13 +1,13 @@
+import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
 import indentString from 'indent-string';
-
-import { Command, flags } from '@oclif/command';
 
 import { checkDirectoryEmail } from '../../../../logic/adminApi/checkDirectoryEmail';
 
 // eslint-disable-next-line import/no-default-export
 export default class Check extends Command {
-  static description = 'check the status of an email registration for a directory';
+  static description =
+    'check the status of an email registration for a directory';
 
   static examples = [
     `
@@ -44,12 +44,23 @@ The status of this registration is:
     const { flags: invokedFlags } = this.parse(Check);
 
     // define the input
-    const directoryUuid = invokedFlags.directoryUuid || (await cli.prompt('What is the uuid of the directory you would like to check for?'));
-    const email = invokedFlags.email || (await cli.prompt('What is the email address you would like to check for?'));
+    const directoryUuid =
+      invokedFlags.directoryUuid ||
+      (await cli.prompt(
+        'What is the uuid of the directory you would like to check for?',
+      ));
+    const email =
+      invokedFlags.email ||
+      (await cli.prompt(
+        'What is the email address you would like to check for?',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Checking that now');
-    const { registration } = await checkDirectoryEmail({ directoryUuid, email });
+    const { registration } = await checkDirectoryEmail({
+      directoryUuid,
+      email,
+    });
     cli.action.stop();
     cli.info(`
 The status of this registration is:

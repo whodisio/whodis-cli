@@ -1,13 +1,13 @@
 /* eslint-disable class-methods-use-this */
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { listDirectories } from '../../../logic/adminApi/listDirectories';
 
 // eslint-disable-next-line import/no-default-export
 export default class List extends Command {
-  static description = 'list the directories in a namespace you have admin access of';
+  static description =
+    'list the directories in a namespace you have admin access of';
 
   static examples = [
     `
@@ -40,7 +40,11 @@ The directories in this namespace are:
     const { flags: invokedFlags } = this.parse(List);
 
     // define the input
-    const namespace = invokedFlags.namespace || (await cli.prompt('What namespace would you like to list the directories of?'));
+    const namespace =
+      invokedFlags.namespace ||
+      (await cli.prompt(
+        'What namespace would you like to list the directories of?',
+      ));
 
     // fulfill request
     cli.action.start('Ok. Looking that up now');

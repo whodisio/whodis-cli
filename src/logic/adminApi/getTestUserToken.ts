@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { requireTokenForUser } from '../token/requireTokenForUser';
 import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
@@ -24,7 +24,9 @@ export const getTestUserToken = async ({
     );
     return { token: data.token };
   } catch (error) {
-    const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
+    const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({
+      axiosError: error as AxiosError,
+    });
     if (whodisBadRequestError) throw whodisBadRequestError; // if we found its a whodisBadRequestError, throw it
     throw error; // otherwise, just pass the error up as is - there's nothing helpful we can add onto it
   }

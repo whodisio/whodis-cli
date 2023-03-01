@@ -1,9 +1,17 @@
-import cli from 'cli-ux';
-import { answerAuthChallenge, askAuthChallenge, ChallengeGoal, ChallengeType, ContactMethodType } from 'whodis-client';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
+import {
+  answerAuthChallenge,
+  askAuthChallenge,
+  ChallengeGoal,
+  ChallengeType,
+  ContactMethodType,
+} from 'whodis-client';
 
-import { WHODIS_DIRECTORY_CLIENT_TOKEN, WHODIS_DIRECTORY_UUID } from '../../data/directory';
+import {
+  WHODIS_DIRECTORY_CLIENT_TOKEN,
+  WHODIS_DIRECTORY_UUID,
+} from '../../data/directory';
 import { saveTokenForUser } from '../../logic/token/saveTokenForUser';
 import { withRetry } from '../../utils/wrappers/withRetry';
 
@@ -31,14 +39,19 @@ You have been successfully logged in!
 
   static flags = {
     help: flags.help({ char: 'h' }),
-    email: flags.string({ char: 'p', description: 'the email address you would like to login with' }),
+    email: flags.string({
+      char: 'p',
+      description: 'the email address you would like to login with',
+    }),
   };
 
   async run() {
     const { flags: invokedFlags } = this.parse(Login);
 
     // define the email
-    const email = invokedFlags.email || (await cli.prompt('What email would you like to login with?'));
+    const email =
+      invokedFlags.email ||
+      (await cli.prompt('What email would you like to login with?'));
 
     // get the challenge
     cli.action.start('Ok. Sending a confirmation code now');
@@ -54,11 +67,16 @@ You have been successfully logged in!
     // with a retry, try to answer the challenge for user. (retry -> give two attempts)
     const token = await withRetry(async () => {
       // get the confirmation code from user
-      const confirmationCode = await cli.prompt('What is the confirmation code that was sent to that email?');
+      const confirmationCode = await cli.prompt(
+        'What is the confirmation code that was sent to that email?',
+      );
 
       // answer the challenge
       cli.action.start('Thanks! Confirming that now');
-      const result = await answerAuthChallenge({ challengeUuid, challengeAnswer: confirmationCode });
+      const result = await answerAuthChallenge({
+        challengeUuid,
+        challengeAnswer: confirmationCode,
+      });
       cli.action.stop();
       return result.token;
     })();

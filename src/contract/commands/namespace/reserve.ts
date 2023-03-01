@@ -1,6 +1,5 @@
-import cli from 'cli-ux';
-
 import { Command, flags } from '@oclif/command';
+import cli from 'cli-ux';
 
 import { reserveNamespace } from '../../../logic/adminApi/reserveNamespace';
 
@@ -32,7 +31,9 @@ Ok. Reserving that now... done
     const { flags: invokedFlags } = this.parse(Reserve);
 
     // define the email
-    const namespace = invokedFlags.namespace || (await cli.prompt('What namespace would you like to reserve?'));
+    const namespace =
+      invokedFlags.namespace ||
+      (await cli.prompt('What namespace would you like to reserve?'));
 
     // fulfill request
     cli.action.start('Ok. Reserving that now');

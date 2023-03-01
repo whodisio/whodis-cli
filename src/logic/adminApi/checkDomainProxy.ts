@@ -1,9 +1,13 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 import { requireTokenForUser } from '../token/requireTokenForUser';
 import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 
-export const checkDomainProxy = async ({ domain }: { domain: string }): Promise<{ proxy: any }> => {
+export const checkDomainProxy = async ({
+  domain,
+}: {
+  domain: string;
+}): Promise<{ proxy: any }> => {
   // grab their token
   const token = await requireTokenForUser();
 
@@ -16,7 +20,9 @@ export const checkDomainProxy = async ({ domain }: { domain: string }): Promise<
     );
     return { proxy: data.proxy };
   } catch (error) {
-    const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({ axiosError: error });
+    const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({
+      axiosError: error as AxiosError,
+    });
     if (whodisBadRequestError) throw whodisBadRequestError; // if we found its a whodisBadRequestError, throw it
     throw error; // otherwise, just pass the error up as is - there's nothing helpful we can add onto it
   }

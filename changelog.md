@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/whodisio/whodis-cli/compare/v0.4.2...v0.5.0) (2023-09-15)
+
+
+### Features
+
+* **oidc:** enable setting oidc credentials ([4bdd603](https://github.com/whodisio/whodis-cli/commit/4bdd603ee916e79f4dab97dbbe2e8cbe7129dcd0))
+
 ## [0.4.2](https://github.com/whodisio/whodis-cli/compare/v0.4.1...v0.4.2) (2023-09-15)
 
 

@@ -3,26 +3,24 @@ import axios, { AxiosError } from 'axios';
 import { requireTokenForUser } from '../token/requireTokenForUser';
 import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 
-export const getTestUserToken = async ({
-  directoryUuid,
-  audienceUri,
-  expirationInHours,
-}: {
+export const setDirectoryOidcCredentials = async (input: {
   directoryUuid: string;
-  audienceUri: string;
-  expirationInHours: { forAuth: string; forRefresh: string };
-}): Promise<{ token: string }> => {
+  provider: 'APPLE' | 'GOOGLE' | 'FACEBOOK'; // TODO: replace with simple-oidc-auth's enum OidcIdentityProvider
+  clientId: string;
+  clientSecret: string | null;
+  clientPrivateKey: string | null;
+}): Promise<{ success: true }> => {
   // grab their token
   const token = await requireTokenForUser();
 
   // reserve the namespace
   try {
     const { data } = await axios.post(
-      'https://api.whodis.io/admin/directory/user/test/token/generate',
-      { directoryUuid, audienceUri, expirationInHours },
+      'https://api.whodis.io/admin/directory/oidc/credentials/set',
+      input,
       { headers: { authorization: `Bearer ${token}` } },
     );
-    return { token: data.token };
+    return { success: data.success };
   } catch (error) {
     const whodisBadRequestError = findWhodisBadRequestErrorInAxiosError({
       axiosError: error as AxiosError,

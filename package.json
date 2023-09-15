@@ -2,7 +2,7 @@
   "name": "whodis-cli",
   "author": "whodis",
   "description": "New cli, whodis? Signup, Login, and Admin your Whodis account.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "bin": {
     "whodis": "./bin/run"
   },

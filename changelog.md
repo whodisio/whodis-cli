@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/whodisio/whodis-cli/compare/v0.5.0...v0.5.1) (2023-09-23)
+
+
+### Bug Fixes
+
+* **oidc:** support custom apple oidc credentials serialization ([6e0bb10](https://github.com/whodisio/whodis-cli/commit/6e0bb102bbad3dbb172bdf433def6eb9435a41ad))
+
 ## [0.5.0](https://github.com/whodisio/whodis-cli/compare/v0.4.2...v0.5.0) (2023-09-15)
 
 

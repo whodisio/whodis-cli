@@ -1,11 +1,12 @@
 import axios, { AxiosError } from 'axios';
+import { OidcIdentityProvider } from 'simple-oidc-auth';
 
 import { requireTokenForUser } from '../token/requireTokenForUser';
 import { findWhodisBadRequestErrorInAxiosError } from './WhodisBadRequestError';
 
 export const setDirectoryOidcCredentials = async (input: {
   directoryUuid: string;
-  provider: 'APPLE' | 'GOOGLE' | 'FACEBOOK'; // TODO: replace with simple-oidc-auth's enum OidcIdentityProvider
+  provider: OidcIdentityProvider | string;
   clientId: string;
   clientSecret: string | null;
   clientPrivateKey: string | null;

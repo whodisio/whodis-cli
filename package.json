@@ -82,6 +82,7 @@
     "postinstall": "[ -d .git ] && npx husky install || exit 0"
   },
   "dependencies": {
+    "@inquirer/editor": "^1.2.10",
     "@oclif/command": "^1.8.0",
     "@oclif/config": "^1.17.0",
     "@oclif/plugin-help": "^3.2.0",
@@ -89,6 +90,7 @@
     "cli-ux": "^5.5.0",
     "date-fns": "^2.16.1",
     "indent-string": "^4.0.0",
+    "simple-oidc-auth": "^1.0.5",
     "type-fns": "^0.9.0",
     "uuid": "9.0.0",
     "whodis-client": "^0.9.1"

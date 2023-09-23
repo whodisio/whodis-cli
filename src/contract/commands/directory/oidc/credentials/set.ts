@@ -1,3 +1,4 @@
+import editor from '@inquirer/editor';
 import { Command, flags } from '@oclif/command';
 import cli from 'cli-ux';
 
@@ -62,7 +63,7 @@ Success:
       (await cli.prompt(
         'What is the directoryUuid of the directory to set the credentials to?',
       ));
-    const provider =
+    const provider: string =
       invokedFlags.provider ||
       (await cli.prompt(
         'What is the name of the identity provider these credentials are from? (e.g., APPLE, GOOGLE, FACEBOOK, etc)',
@@ -70,17 +71,50 @@ Success:
     const clientId =
       invokedFlags.clientId ||
       (await cli.prompt('What is the client id of these credentials?'));
-    const clientSecret =
+    const clientSecretInput =
       invokedFlags.clientSecret ||
       (await cli.prompt(
         "What is the client secret of these credentials? (type 'null' if not applicable)",
       )) ||
       null;
-    const clientPrivateKey =
+    const clientPrivateKeyInput =
       invokedFlags.clientPrivateKey ||
-      (await cli.prompt(
-        "What is the client private key of these credentials? (type 'null' if not applicable)",
-      ));
+      (await editor({
+        message:
+          "What is the client private key of these credentials? (type 'null' if not applicable)",
+        waitForUseInput: true,
+        postfix: '.pem',
+      }));
+
+    // normalize the client secret
+    const clientSecret =
+      clientSecretInput.toLowerCase().trim() === 'null'
+        ? null
+        : clientSecretInput;
+
+    // serialize the client private key as needed, if needed
+    const clientPrivateKey = await (async () => {
+      // if its "null", then null
+      if (clientPrivateKeyInput.toLowerCase().trim() === 'null') return null;
+
+      // if its an apple provider, also grab the clientDeveloperTeamId and clientPrivateKeyId
+      if (provider.trim().toUpperCase() === 'APPLE') {
+        const clientPrivateKeyId = await cli.prompt(
+          'What is the apple private key id associated with this client private key?',
+        );
+        const clientDeveloperTeamId = await cli.prompt(
+          'What is the apple developer team id associated with this client private key?',
+        );
+        return JSON.stringify({
+          developerTeamId: clientDeveloperTeamId.trim(),
+          privateKeyId: clientPrivateKeyId.trim(),
+          privateKeyValue: clientPrivateKeyInput.trim(),
+        });
+      }
+
+      // otherwise, no special serialization needed
+      return clientPrivateKeyInput;
+    })();
 
     // fulfill request
     cli.action.start('Ok. Setting that now');
@@ -88,12 +122,8 @@ Success:
       directoryUuid,
       provider,
       clientId,
-      clientSecret:
-        clientSecret.toLowerCase().trim() === 'null' ? null : clientSecret,
-      clientPrivateKey:
-        clientPrivateKey.toLowerCase().trim() === 'null'
-          ? null
-          : clientPrivateKey,
+      clientSecret,
+      clientPrivateKey,
     });
     cli.action.stop();
     cli.info(
